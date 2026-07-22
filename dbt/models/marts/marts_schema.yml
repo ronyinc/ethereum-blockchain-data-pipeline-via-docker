@@ -1,0 +1,94 @@
+
+version: 2
+
+models:
+  - name: eth_activity_per_day
+    config:
+      contract:
+        enforced: true
+        alias_types: false
+    description: "tracking ethereum activity per day"
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          min_value: 1
+    columns:
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: transaction_category
+        data_type: varchar
+        description: ""
+
+      - name: transaction_count
+        data_type: number
+        description: ""
+
+      - name: sum_ethereum_value
+        data_type: float
+        description: ""
+
+  - name: stablecoin_activity_per_day
+    config:
+      contract:
+        enforced: true
+        alias_types: false
+    description: ""
+    columns:
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: token_address
+        data_type: varchar
+        description: ""
+
+      - name: type
+        data_type: varchar
+        description: ""
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Hybrid', 'Crypto-backed', 'Fiat-backed']
+
+      - name: symbol
+        data_type: varchar
+        description: ""
+
+      - name: total_value
+        data_type: float
+        description: ""
+
+  - name: token_activity_per_day
+    config:
+      contract:
+        enforced: true
+        alias_types: false
+    description: ""
+    columns:
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: token_address
+        data_type: varchar
+        description: ""
+
+      - name: total_value
+        data_type: float
+        description: ""
+
+  - name: confirmed_frauds
+    description: ""
+    columns:
+      - name: from_address
+        data_type: varchar
+        description: ""
+
+      - name: bytecode
+        data_type: varchar
+        description: ""
+
+      - name: bytecode_count
+        data_type: number
+        description: ""        

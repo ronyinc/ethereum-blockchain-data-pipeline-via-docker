@@ -1,0 +1,95 @@
+version: 2
+
+sources:
+  - name: eth
+    database: eth  
+    schema: eth_schema  
+    tables:
+      - name: contracts
+        columns:
+          - name: address
+            data_type: varchar
+          - name: block_hash
+            data_type: varchar
+          - name: block_number
+            data_type: number
+          - name: block_timestamp
+            data_type: timestamp_ntz
+          - name: bytecode
+            data_type: varchar
+          - name: date
+            data_type: date
+          - name: last_modified
+            data_type: timestamp_ntz
+
+      - name: token_transfers
+        columns:
+          - name: block_hash
+            data_type: varchar
+          - name: block_number
+            data_type: number
+          - name: block_timestamp
+            data_type: timestamp_ntz
+          - name: date
+            data_type: date
+          - name: from_address
+            data_type: varchar
+          - name: to_address
+            data_type: varchar
+          - name: last_modified
+            data_type: timestamp_ntz
+          - name: log_index
+            data_type: number
+          - name: token_address
+            data_type: varchar
+          - name: transaction_hash
+            data_type: varchar
+          - name: value
+            data_type: float
+
+      - name: transactions
+        columns:
+          - name: block_hash
+            data_type: varchar
+          - name: block_number
+            data_type: number
+          - name: block_timestamp
+            data_type: timestamp_ntz
+          - name: date
+            data_type: date
+          - name: from_address
+            data_type: varchar
+          - name: gas
+            data_type: number
+          - name: gas_price
+            data_type: varchar
+          - name: hash
+            data_type: varchar
+          - name: input
+            data_type: varchar
+          - name: last_modified
+            data_type: timestamp_ntz
+          - name: max_fee_per_gas
+            data_type: varchar
+          - name: max_priority_fee_per_gas
+            data_type: varchar
+          - name: nonce
+            data_type: varchar
+          - name: receipt_contract_address
+            data_type: varchar
+          - name: receipt_cumulative_gas_used
+            data_type: number
+          - name: receipt_effective_gas_price
+            data_type: varchar
+          - name: receipt_gas_used
+            data_type: number
+          - name: receipt_status
+            data_type: number
+          - name: to_address
+            data_type: varchar
+          - name: transaction_index
+            data_type: number
+          - name: transaction_type
+            data_type: number
+          - name: value
+            data_type: float

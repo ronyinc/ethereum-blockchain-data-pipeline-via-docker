@@ -1,0 +1,56 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'eth'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'eth'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  eth:
+    staging:
+      +materialized: view
+      +schema: staging
+
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+
+    marts:
+      +materialized: table
+      +tags: ['report']
+      +schema: marts
+      stablecoin_activity_per_day:
+        +post-hook:
+          - GRANT USAGE ON DATABASE ETH_DBT TO ROLE TESTER;
+          - GRANT USAGE ON DATABASE ETH_DBT TO ROLE BA;
+          - GRANT USAGE ON SCHEMA ETH_DBT.RONYJESLIN_MARTS TO ROLE TESTER;
+          - GRANT USAGE ON SCHEMA ETH_DBT.RONYJESLIN_MARTS TO ROLE BA; 
+          - GRANT SELECT ON TABLE ETH_DBT.RONYJESLIN_MARTS.STABLECOIN_ACTIVITY_PER_DAY TO ROLE TESTER;
+        +grants:
+          select:  ['BA']  
+
+    ephemeral_models:
+      +materialized: ephemeral  
+
+vars:
+  token_address_var: '0x50327c6c5a14dcade707abad2e27eb517df87ab5'
+  token_decimals_var: '6'
+  token_name_var: 'tron12'

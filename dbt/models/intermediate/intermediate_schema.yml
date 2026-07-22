@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: int_transactions_enriched
+    description: ""
+    columns:
+      - name: hash
+        data_type: varchar
+        description: ""
+
+      - name: block_number
+        data_type: number
+        description: ""
+
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: from_address
+        data_type: varchar
+        description: ""
+
+      - name: to_address
+        data_type: varchar
+        description: ""
+
+      - name: value
+        data_type: float
+        description: ""
+
+      - name: receipt_contract_address
+        data_type: varchar
+        description: ""
+
+      - name: input
+        data_type: varchar
+        description: ""
+
+      - name: token_transfer_count
+        data_type: number
+        description: ""
+
+      - name: transaction_category
+        data_type: varchar
+        description: ""

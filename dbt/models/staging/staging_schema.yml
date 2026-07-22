@@ -1,0 +1,159 @@
+
+version: 2
+
+models:
+  - name: stg_contracts
+    description: ""
+    columns:
+      - name: address
+        data_type: varchar
+        description: ""
+
+      - name: block_number
+        data_type: number
+        description: ""
+
+      - name: block_timestamp
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: bytecode
+        data_type: varchar
+        description: ""
+
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: last_modified
+        data_type: timestamp_ntz
+        description: ""
+
+  - name: stg_token_transfers
+    description: ""
+    columns:
+      - name: transaction_hash
+        data_tests:
+          - relationships:
+              to: ref('stg_transactions')
+              field: hash
+        data_type: varchar
+        description: ""
+
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: token_address
+        data_type: varchar
+        description: ""
+
+      - name: value
+        data_type: float
+        description: ""
+
+  - name: stg_transactions
+    description: ""
+    columns:
+      - name: hash
+        data_type: varchar
+        description: "unique transaction hash for each transaction"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: block_number
+        data_type: number
+        description: ""
+
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: from_address
+        data_type: varchar
+        description: ""
+
+      - name: to_address
+        data_type: varchar
+        description: ""
+
+      - name: value
+        data_type: float
+        description: "ETH value of the transaction"
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly:  false
+
+      - name: receipt_contract_address
+        data_type: varchar
+        description: ""
+
+      - name: input
+        data_type: varchar
+        description: ""
+
+      - name: new_field
+        data_type: number
+        description: ""
+
+  - name: stg_fraud
+    description: ""
+    columns:
+      - name: from_address
+        data_type: varchar
+        description: ""
+
+      - name: bytecode
+        data_type: varchar
+        description: ""
+
+      - name: bytecode_count
+        data_type: number
+        description: ""
+
+  - name: stg_transactions_enriched
+    description: ""
+    columns:
+      - name: hash
+        data_type: varchar
+        description: ""
+
+      - name: block_number
+        data_type: number
+        description: ""
+
+      - name: date
+        data_type: date
+        description: ""
+
+      - name: from_address
+        data_type: varchar
+        description: ""
+
+      - name: to_address
+        data_type: varchar
+        description: ""
+
+      - name: value
+        data_tests:
+          - assert_value_amount_positive
+        data_type: float
+        description: ""
+
+      - name: receipt_contract_address
+        data_type: varchar
+        description: ""
+
+      - name: input
+        data_type: varchar
+        description: ""
+
+      - name: token_transfer_count
+        data_type: number
+        description: ""
+
+      - name: transaction_category
+        data_type: varchar
+        description: ""    
