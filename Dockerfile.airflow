@@ -21,6 +21,3 @@ COPY requirements.txt /requirements.txt
 RUN python3 -m venv /home/airflow/dbt_venv && \
     /home/airflow/dbt_venv/bin/pip install --no-cache-dir --upgrade pip && \
     /home/airflow/dbt_venv/bin/pip install --no-cache-dir -r /requirements.txt
-
-ENV DBT_VENV=/home/airflow/dbt_venv
-ENV PATH="${DBT_VENV}/bin:${PATH}"

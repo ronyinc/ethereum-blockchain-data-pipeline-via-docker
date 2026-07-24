@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: eth
-    database: eth  
+    database: raw  
     schema: eth_schema  
     tables:
       - name: contracts
