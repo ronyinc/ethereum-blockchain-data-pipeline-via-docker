@@ -18,5 +18,8 @@ with DAG(
 
     dbt_build = BashOperator(
         task_id="dbt_build",
-        bash_command="cd /opt/airflow/dbt && dbt build --target dev --select marts",
+        bash_command="""
+        cd /opt/airflow/dbt &&
+        /home/airflow/dbt_venv/bin/dbt build --target dev --select staging
+        """,
     )
