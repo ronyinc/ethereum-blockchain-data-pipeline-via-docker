@@ -200,6 +200,13 @@ This project was built to gain hands-on experience with:
 
 ---
 
+## Disclaimer
+
+This project uses the AWS Public Blockchain Dataset as its source of Ethereum blockchain data. It is intended for educational and portfolio purposes and is not affiliated with Amazon Web Services, the Ethereum Foundation, or any blockchain data provider.
+
+
+
 # License
 
 This project is licensed under the MIT License.
+
