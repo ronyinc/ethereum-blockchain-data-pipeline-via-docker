@@ -19,7 +19,7 @@ The platform includes:
 - Raw data storage in AWS S3
 - Data warehousing in Snowflake
 - Data transformation using dbt Core
-- CI/CD using GitHub Actions
+- CI/CD using GitHub Actions (work in progress. Not committed yet) 
 - Analytics-ready dimensional models
 
 ---
@@ -43,7 +43,7 @@ https://github.com/ronyinc/ethereum-blockchain-data-pipeline-via-docker/blob/mai
 | Cloud Storage | AWS S3 |
 | Metadata Database | PostgreSQL |
 | Version Control | Git & GitHub |
-| CI/CD | GitHub Actions |
+| CI/CD | GitHub Actions (work in progress. Not committed yet) |
 | Operating System | Ubuntu Linux |
 
 ---
@@ -107,7 +107,7 @@ ethereum-blockchain-data-pipeline/
 - Secure Snowflake RSA authentication
 - AWS S3 raw data landing layer
 - dbt modular transformations
-- CI/CD using GitHub Actions
+- CI/CD using GitHub Actions (work in progress. Not committed yet) 
 - Analytics-ready dimensional models
 - Scalable architecture for future blockchain datasets
 
@@ -168,8 +168,8 @@ GitHub Actions automatically performs:
 - dbt parse
 - dbt build
 - dbt tests
-- Slim CI
-- Deployment validation
+- Slim CI (work in progress. Not committed yet) 
+- Deployment validation (work in progress. Not committed yet) 
 
 ---
 
@@ -195,7 +195,7 @@ This project was built to gain hands-on experience with:
 - dbt Core
 - Python
 - AWS S3
-- GitHub Actions
+- GitHub Actions (work in progress. Not committed yet) 
 - Modern ELT architecture
 - Production-style Data Engineering workflows
 
