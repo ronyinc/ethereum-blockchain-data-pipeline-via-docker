@@ -25,8 +25,9 @@ The platform includes:
 ---
 
 # Architecture
+Architecture Diagram 
 
-![Architecture Diagram](docs/architecture-diagram.png)
+https://github.com/ronyinc/ethereum-blockchain-data-pipeline-via-docker/blob/main/docs/de-docker-airfow-dbt-core-snowflake-git.png
 
 ---
 
