@@ -211,3 +211,113 @@ This project uses the AWS Public Blockchain Dataset as its source of Ethereum bl
 
 This project is licensed under the MIT License.
 
+project architecture : 
+
+
+                    DOCKER
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│                 AIRFLOW                             │
+│                                                     │
+│  Python DAG                                         │
+│      │                                              │
+│      ↓                                              │
+│  SnowflakeHook                                      │
+│      │                                              │
+│      ↓                                              │
+│  snowflake_default                                  │
+│      │                                              │
+│      ↓                                              │
+│  RSA authentication                                 │
+│      │                                              │
+│      ↓                                              │
+│  ┌─────────────────────────────────────────────┐    │
+│  │              SNOWFLAKE                      │    │
+│  │                                             │    │
+│  │  RAW.ETH_SCHEMA                             │    │
+│  │       │                                     │    │
+│  │       │                                     │    │
+│  │       └───────────────┐                     │    │
+│  │                       ↓                     │    │
+│  │                  dbt models                 │    │
+│  │                       │                     │    │
+│  │              ┌────────┼─────────┐           │    │
+│  │              ↓        ↓         ↓           │    │
+│  │           staging intermediate marts        │    │
+│  │              │        │         │           │    │
+│  │            views    views     tables        │    │
+│  │                                  │          │    │
+│  │                                  ↓          │    │
+│  │                           BI / reporting    │    │
+│  └─────────────────────────────────────────────┘    │
+│                                                     │
+│  /home/airflow/dbt_venv                             │
+│       │                                             │
+│       └── dbt Core + dbt Snowflake                  │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+         YOUR UBUNTU MACHINE
+                  │
+ ┌────────────────┼─────────────────┐
+ │                │                 │
+.env              dbt/         snowflake_keys/
+ │                │                 │
+ │                │                 │
+ └──────────── Docker Compose ──────┘
+                  │
+                  ↓
+        ┌───────────────────┐
+        │  Airflow Docker   │
+        │                   │
+        │ Airflow           │
+        │   │               │
+        │   └─ Connection ──┼──────→ Snowflake
+        │                   │
+        │ dbt_venv          │
+        │   │               │
+        │   └─ dbt          │
+        │        │          │
+        │        ↓          │
+        │   profiles.yml    │
+        │        │          │
+        └────────┼──────────┘
+                 ↓
+              Snowflake
+
+
+                  dbt
+                   │
+             profile: eth
+                   │
+       ┌───────────┼───────────┐
+       │           │           │
+      dev         ci          prod
+       │           │           │
+       ↓           ↓           ↓
+    ETH_DBT      CI_CD        PROD
+    RONYJESLIN   CI_CD_ETH    PROD_ETH                          
+
+
+
+
+So the complete authentication path is:
+
+
+                    LOCAL MACHINE
+                     │
+          ./snowflake_keys/
+                     │
+                     │ mounted read-only
+                     ↓
+                DOCKER
+                     │
+      /opt/airflow/snowflake_keys/
+                     │
+                     │ rsa_key.p8
+                     ↓
+                 dbt
+                     │
+                     │ profiles.yml
+                     ↓
+                Snowflake
