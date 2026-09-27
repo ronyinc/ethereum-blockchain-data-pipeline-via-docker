@@ -12,6 +12,12 @@ jobs:
 
     env:
       DBT_PRIVATE_KEY: ${{ secrets.DBT_PRIVATE_KEY }}
+      DBT_SNOWFLAKE_ACCOUNT: ${{ vars.DBT_SNOWFLAKE_ACCOUNT }}
+      DBT_SNOWFLAKE_USER: ${{ vars.DBT_SNOWFLAKE_USER }}
+      DBT_SNOWFLAKE_ROLE: ${{ vars.DBT_SNOWFLAKE_ROLE }}
+      DBT_SNOWFLAKE_WAREHOUSE: ${{ vars.DBT_SNOWFLAKE_WAREHOUSE }}
+      DBT_CI_DATABASE: ${{ vars.DBT_CI_DATABASE }}
+      DBT_CI_SCHEMA: ${{ vars.DBT_CI_SCHEMA }}
       DBT_PRIVATE_KEY_PATH: /home/runner/.dbt/rsa_key.p8
 
     steps:
@@ -31,16 +37,19 @@ jobs:
       - name: Set up dbt profile + private key
         run: |
           mkdir -p ~/.dbt
-          cp .dbt/profiles.yml ~/.dbt/profiles.yml
+          cp dbt/.dbt/profiles.yml ~/.dbt/profiles.yml
           echo "$DBT_PRIVATE_KEY" > ~/.dbt/rsa_key.p8
           chmod 600 ~/.dbt/rsa_key.p8
 
       - name: Install dbt deps
+        working-directory: ./dbt
         run: dbt deps
 
       - name: Run dbt debug
-        run: dbt debug --target
+        working-directory: ./dbt
+        run: dbt debug --target ci
 
       - name: Run dbt
+        working-directory: ./dbt
         run: dbt build --target ci                    
 
