@@ -49,6 +49,9 @@ jobs:
         working-directory: ./dbt
         run: dbt debug --target ci
 
+      - name: Run dbt seed
+        run: dbt seed --target ci  
+
       - name: Run dbt
         working-directory: ./dbt
         run: dbt run --empty --target ci                    
