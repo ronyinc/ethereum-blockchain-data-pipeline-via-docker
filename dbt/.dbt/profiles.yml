@@ -10,4 +10,14 @@ eth:
       schema: "{{ env_var('DBT_CI_SCHEMA') }}"
       private_key_path: "{{ env_var('DBT_PRIVATE_KEY_PATH') }}"
       threads: 1
+    prod:
+      type: snowflake
+      account: "{{ env_var('DBT_SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('DBT_SNOWFLAKE_USER') }}"
+      role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_WAREHOUSE') }}"
+      database: PROD
+      schema: PROD_ETH
+      private_key_path: "{{ env_var('DBT_PRIVATE_KEY_PATH') }}"
+      threads: 1  
   target: ci
