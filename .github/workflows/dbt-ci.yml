@@ -53,10 +53,10 @@ jobs:
         working-directory: ./dbt
         run: dbt seed --target ci
 
-      - name: Create state manifest from master
+      - name: Create production state manifest from main
         working-directory:  ./dbt
         run: |
-          git checkout master
+          git checkout main
           dbt deps
           dbt parse --target prod
           mkdir -p state
