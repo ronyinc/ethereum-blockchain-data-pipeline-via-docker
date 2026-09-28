@@ -3,7 +3,7 @@
 
     {% if target.name == 'dev' %}
 
-        where {{ column_name }} >= dateadd('day', -45, current_date)
+        where {{ column_name }} >= dateadd('day', -100, current_date)
 
     {% endif %}
 
