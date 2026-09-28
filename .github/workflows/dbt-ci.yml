@@ -51,9 +51,31 @@ jobs:
 
       - name: Run dbt seed
         working-directory: ./dbt
-        run: dbt seed --target ci  
+        run: dbt seed --target ci
+
+      - name: Create state manifest from master
+        working-directory:  ./dbt
+        run: |
+          git checkout master
+          dbt deps
+          dbt parse --target prod
+          mkdir -p state
+          cp target/manifest.json state/manifest.json
+          git checkout -
+
+      - name: Show modified nodes
+        working-directory: ./dbt
+        run: |
+          dbt ls --state ./state --select state:modified+
+
+      # ----- the slim build --------- (modified + downstream)
 
       - name: Run dbt
         working-directory: ./dbt
-        run: dbt run --empty --target ci                    
+        run: |
+          dbt build \
+            --target ci \
+            --state ./state \
+            --defer \
+            --select "state:modified+"                     
 
