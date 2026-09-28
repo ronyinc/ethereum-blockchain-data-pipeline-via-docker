@@ -50,6 +50,7 @@ jobs:
         run: dbt debug --target ci
 
       - name: Run dbt seed
+        working-directory: ./dbt
         run: dbt seed --target ci  
 
       - name: Run dbt
