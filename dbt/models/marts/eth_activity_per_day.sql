@@ -1,7 +1,7 @@
 
 {{ config(tags=['eth']) }}
 
----  testing slim ci build --va-01
+---  testing slim ci build --va-02
 
 select
         date,
