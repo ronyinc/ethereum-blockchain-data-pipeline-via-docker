@@ -1,7 +1,7 @@
 
 {{ config(tags=['eth']) }}
 
----  testing live mount
+---  testing slim ci build --va-01
 
 select
         date,
