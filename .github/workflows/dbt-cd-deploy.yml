@@ -2,8 +2,8 @@ name: dbt prod deploy
 
 on:
   push:
-    branches: ["master"]
-  workflow_dispatch:
+    branches: ["main"]
+  workflow_dispatch:  # trigger this action manually from github ui if required
 
 jobs:
   dbt-run:
@@ -43,15 +43,15 @@ jobs:
 
       - name: Install dbt deps
         working-directory: ./dbt
-        run: dbt deps
+        run: dbt deps --target prod
 
       - name: Run dbt debug
         working-directory: ./dbt
-        run: dbt debug --target ci
+        run: dbt debug --target prod
 
       - name: Run dbt seed
         working-directory: ./dbt
-        run: dbt seed --target ci
+        run: dbt seed --target prod
 
       - name: Create production state manifest from main
         working-directory:  ./dbt
