@@ -61,7 +61,7 @@ jobs:
           dbt parse --target prod
           mkdir -p state
           cp target/manifest.json state/manifest.json
-          git checkout master
+          git checkout main
 
       - name: Show modified nodes
         working-directory: ./dbt
