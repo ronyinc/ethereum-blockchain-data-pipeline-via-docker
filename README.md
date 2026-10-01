@@ -169,7 +169,7 @@ GitHub Actions automatically performs:
 - dbt build
 - dbt tests
 - Slim CI (work in progress. Not committed yet) 
-- Deployment validation (work in progress. Not committed yet) 
+- ci-cd Deployment via github actions 
 
 ---
 
@@ -257,7 +257,7 @@ project architecture :
 │                                                     │
 └─────────────────────────────────────────────────────┘
 
-         YOUR UBUNTU MACHINE
+           UBUNTU MACHINE
                   │
  ┌────────────────┼─────────────────┐
  │                │                 │
@@ -299,25 +299,3 @@ project architecture :
     RONYJESLIN   CI_CD_ETH    PROD_ETH                          
 
 
-
-
-So the complete authentication path is:
-
-
-                    LOCAL MACHINE
-                     │
-          ./snowflake_keys/
-                     │
-                     │ mounted read-only
-                     ↓
-                DOCKER
-                     │
-      /opt/airflow/snowflake_keys/
-                     │
-                     │ rsa_key.p8
-                     ↓
-                 dbt
-                     │
-                     │ profiles.yml
-                     ↓
-                Snowflake
