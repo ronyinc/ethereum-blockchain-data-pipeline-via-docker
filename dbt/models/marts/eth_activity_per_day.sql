@@ -1,13 +1,13 @@
 
 {{ config(tags=['eth']) }}
 
----  testing slim ci build --va-02
+---  testing slim ci build --va-05
 
 select
         date,
         transaction_category,
         count(*) as transaction_count,
-        sum({{ ethereum_conversion('value') }}) as sum_ethereum_value
+        sum({{ ethereum_conversion('value') }}) as sum_ethereum_val
 
 from 
          {{ ref('int_transactions_enriched') }}
