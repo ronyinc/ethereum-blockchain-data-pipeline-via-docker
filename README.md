@@ -19,7 +19,7 @@ The platform includes:
 - Raw data storage in AWS S3
 - Data warehousing in Snowflake
 - Data transformation using dbt Core
-- CI/CD using GitHub Actions (work in progress. Not committed yet) 
+- CI/CD using GitHub Actions 
 - Analytics-ready dimensional models
 
 ---
